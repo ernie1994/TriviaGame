@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+    <div class="container mt-5">
+
+        <div class="row">
+            <div class="col-12">
+                <h1>Game of Thrones Trivia</h1>
+            </div>
+        </div>
+
+        <div class="row" id="btn-row">
+            <div class="col-12">
+                <button type="button" class="btn btn-secondary btn-lg my-5">Start</button>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+
+                var questions = [
+                    {
+                        question: "Who is the rightful King of Westeros?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "dfasdfasfas?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "sdafadsf?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "Whodfteros?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "Who is thedfdfd rightful King of Westeros?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "Who is the fdfdfdfsasdfasf King of Westeros?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                    {
+                        question: "Who is the rightful adsfmksadlmfKing of Westeros?",
+                        correct: "Jon Snow",
+                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    },
+                ];
+
+                var questTimer;
+                var transTimer;
+
+                const MAX_TIME = 10;
+                var timeRemaining = MAX_TIME;
+                var currentQuest = 0;
+
+
+
+                function createRow(html, rowClass, colClass) {
+
+                    var row = rowClass ? rowClass : "row";
+                    var col = colClass ? colClass : "col-12";
+
+                    var rowDiv = $("<div>");
+                    rowDiv.attr("class", row);
+
+                    var colDiv = $("<div>");
+                    colDiv.attr("class", col);
+                    colDiv.html(html);
+
+                    rowDiv.append(colDiv);
+
+                    $(".container").append(rowDiv);
+                }
+
+                function handleTimer() {
+
+                    timeRemaining--;
+
+                    if (timeRemaining == 0) {
+                        clearInterval(questTimer);
+                    }
+                    updateTimeRemaining();
+                }
+
+                function updateTimeRemaining() {
+                    $("#time-remaining").text("Time Remaining: " + timeRemaining + " Seconds");
+                }
+
+                function handleTransTimer() {
+                    $("img").remove();
+                    showQuestion();
+                }
+
+                function addAnswerRows() {
+                    for (var i = 0; i < 4; i++) {
+                        var rowClass = (i == 0) ? "answerRow row mt-3" : "answerRow";
+                        createRow("<h4 class='answer' id='answer" + i + "'></h4>", rowClass);
+                    }
+                }
+
+                function showQuestion() {
+
+                    var question = questions[currentQuest];
+
+                    $("#question").text(question.question);
+                    currentQuest++;
+
+                    var answers = question.incorrect;
+                    answers.push(question.correct);
+
+                    addAnswerRows();
+
+                    for (var i = 0; i < answers.length; i++) {
+
+                        $("#answer" + i).text(answers[i]);
+
+                    }
+
+                    timeRemaining = MAX_TIME;
+                    questTimer = setInterval(handleTimer, 1000);
+
+                    updateTimeRemaining();
+
+                }
+
+                $("button").on("click", function () {
+                    $(this).remove();
+
+                    var time = '<h4 id="time-remaining">Time Remaining: ' + timeRemaining + ' Seconds</h4>';
+                    createRow(time, "row mt-5");
+
+                    var html = '<h5 id="question"></h5>';
+                    createRow(html);
+
+                    showQuestion();
+                });
+
+                $("body").on("click", ".answer", function () {
+                    var question = questions[currentQuest];
+                    var answer = $(this).text();
+
+                    if (answer == question.correct) {
+                        $("#question").text("Correct!");
+                    }
+                    else {
+                        $("#question").text("Nope!");
+                    }
+
+                    $(".answerRow").remove();
+
+                    var img = $("<div>");
+                    img.html("<img src='assets/images/Darth_Sidious.jpg'>");
+                    img.insertAfter("#question");
+
+                    transTimer = setTimeout(handleTransTimer, 1500);
+
+                    clearInterval(questTimer);
+                });
+
+
+
+            });
+        </script>
+
+
+
+</body>
+
+</html>
