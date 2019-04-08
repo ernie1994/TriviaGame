@@ -36,35 +36,35 @@
                         incorrect: ["Gendry", "Danaerys", "Joffrey"]
                     },
                     {
-                        question: "dfasdfasfas?",
-                        correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                        question: "Who is Robert Baratheon's best friend?",
+                        correct: "Ned Stark",
+                        incorrect: ["Tywin", "Jon Arryn", "Gendry"]
                     },
                     {
-                        question: "sdafadsf?",
+                        question: "Who is Ygritte's husband?",
                         correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                        incorrect: ["Tormund", "Lord Baelish", "She is single"]
                     },
                     {
-                        question: "Whodfteros?",
-                        correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
-                    },
-                    {
-                        question: "Who is thedfdfd rightful King of Westeros?",
-                        correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
-                    },
-                    {
-                        question: "Who is the fdfdfdfsasdfasf King of Westeros?",
-                        correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
-                    },
-                    {
-                        question: "Who is the rightful adsfmksadlmfKing of Westeros?",
-                        correct: "Jon Snow",
-                        incorrect: ["Gendry", "Danaerys", "Joffrey"]
-                    },
+                        question: "Which Kingdom is the largest?",
+                        correct: "The North",
+                        incorrect: ["Dorne", "Iron Islands", "The Reach"]
+                    }
+                    // {
+                    //     question: "Who is thedfdfd rightful King of Westeros?",
+                    //     correct: "Jon Snow",
+                    //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    // },
+                    // {
+                    //     question: "Who is the fdfdfdfsasdfasf King of Westeros?",
+                    //     correct: "Jon Snow",
+                    //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    // },
+                    // {
+                    //     question: "Who is the rightful adsfmksadlmfKing of Westeros?",
+                    //     correct: "Jon Snow",
+                    //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
+                    // },
                 ];
 
                 var questTimer;
@@ -73,6 +73,9 @@
                 const MAX_TIME = 10;
                 var timeRemaining = MAX_TIME;
                 var currentQuest = 0;
+
+                var numCorrect = 0;
+                var numWrong = 0;
 
 
 
@@ -109,6 +112,7 @@
 
                 function handleTransTimer() {
                     $("img").remove();
+                    currentQuest++;
                     showQuestion();
                 }
 
@@ -119,12 +123,15 @@
                     }
                 }
 
+                function endGame() {
+
+                }
+
                 function showQuestion() {
 
                     var question = questions[currentQuest];
 
                     $("#question").text(question.question);
-                    currentQuest++;
 
                     var answers = question.incorrect;
                     answers.push(question.correct);
@@ -150,8 +157,7 @@
                     var time = '<h4 id="time-remaining">Time Remaining: ' + timeRemaining + ' Seconds</h4>';
                     createRow(time, "row mt-5");
 
-                    var html = '<h5 id="question"></h5>';
-                    createRow(html);
+                    createRow('<h5 id="question"></h5>');
 
                     showQuestion();
                 });
@@ -162,9 +168,11 @@
 
                     if (answer == question.correct) {
                         $("#question").text("Correct!");
+                        numCorrect++;
                     }
                     else {
                         $("#question").text("Nope!");
+                        numWrong++;
                     }
 
                     $(".answerRow").remove();
