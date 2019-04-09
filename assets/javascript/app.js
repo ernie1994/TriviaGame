@@ -20,22 +20,22 @@ $(document).ready(function () {
             question: "Which Kingdom is the largest?",
             correct: "The North",
             incorrect: ["Dorne", "Iron Islands", "The Reach"]
-        }
-        // {
-        //     question: "Who is thedfdfd rightful King of Westeros?",
-        //     correct: "Jon Snow",
-        //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
-        // },
-        // {
-        //     question: "Who is the fdfdfdfsasdfasf King of Westeros?",
-        //     correct: "Jon Snow",
-        //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
-        // },
-        // {
-        //     question: "Who is the rightful adsfmksadlmfKing of Westeros?",
-        //     correct: "Jon Snow",
-        //     incorrect: ["Gendry", "Danaerys", "Joffrey"]
-        // },
+        },
+        {
+            question: "How did Daenerys Targaryen eventually hatch her dragon eggs?",
+            correct: "In a funeral pyre",
+            incorrect: ["In a frozen cave", "In a fire place", "In a lightning storm"]
+        },
+        {
+            question: "The phrase 'Valar Morghulis' or 'all men must die' is usually responded with:",
+            correct: "Valar Dohaeris or 'all men must serve'",
+            incorrect: ["Valar Rohnas or 'all men must live'", "Valar Rohnas or 'all men must live'", "A response is forbidden"]
+        },
+        {
+            question: "What is the only thing that can put out volatile Wildfire?",
+            correct: "Sand",
+            incorrect: ["Dragon's blood", "Sunlight", "Water"]
+        },
     ];
 
     var questTimer;
@@ -48,8 +48,6 @@ $(document).ready(function () {
     var numCorrect = 0;
     var numWrong = 0;
     var numUnanswered = 0;
-
-
 
     function createRow(html, rowClass, colClass) {
 
